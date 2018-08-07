@@ -1,10 +1,8 @@
-
-
-// The starting points of Scores
+// The starting Scoreboard
 let winScore = 0
 let lossesScore = 0
 
-// Possible choices
+// Possible Computer choices
 const letterChoices = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
 // Initial Computer Choice
@@ -13,25 +11,31 @@ let compChoice = letterChoices[Math.floor(Math.random() * 26)]
 // Number of Guesses User has
 let guessleft = 10
 
-// Initial GuessesMade Array
+// Initial Array of Guesses Made
 let guessesArr = []
 
 document.onkeyup = function (event) {
-  // Your Choice
-  userChoice = event.key
-  
-  // Decreases guessleft after guess is made
-  if(guessleft >1 && guessleft <=10){
-    guessleft -=1
-    guessesArr.push(userChoice)
-  } else if (guessleft=== 1) {
-    guessleft +=9
-    guessesArr =[]
-    compChoice = letterChoices[Math.floor(Math.random() * 26)]
-  }
-    
 
-  
+  // Users Guess
+  userGuess = event.key.toLowerCase()
+
+  // Games Logic 
+  if (userGuess === compChoice) {
+    winScore++
+    guessleft = 10
+    guessesArr = []
+    compChoice = letterChoices[Math.floor(Math.random() * 26)]
+  } else {
+    if (guessleft > 1 && guessleft <= 10) {
+      guessleft -= 1
+      guessesArr.push(userGuess)
+    } else if (guessleft === 1) {
+      guessleft += 9
+      guessesArr = []
+      compChoice = letterChoices[Math.floor(Math.random() * 26)]
+      lossesScore++
+    }
+  }
   // Create a piece of html to display the game's results
   let html = `
 <h3>Wins : ${winScore}</h3>
