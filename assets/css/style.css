@@ -15,3 +15,14 @@ h3 {
   font-weight: bold;
 }
 
+.won{
+  color: green;
+  font-weight:bold;
+  font-size: 28px;
+}
+
+.loss{
+  color: red;
+  font-weight:bold;
+  font-size: 28px;
+}

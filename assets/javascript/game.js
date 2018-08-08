@@ -14,6 +14,10 @@ let guessleft = 10
 // Initial Array of Guesses Made
 let guessesArr = []
 
+// Won or Lost Message
+let message=''
+let result=''
+
 document.onkeyup = function (event) {
 
   // Users Guess
@@ -22,18 +26,24 @@ document.onkeyup = function (event) {
   // Games Logic 
   if (userGuess === compChoice) {
     winScore++
+    message=`You Won! The letter was ${compChoice}!!!`
+    result="won"
     guessleft = 10
     guessesArr = []
     compChoice = letterChoices[Math.floor(Math.random() * 26)]
   } else {
     if (guessleft > 1 && guessleft <= 10) {
       guessleft -= 1
+      message=''
+      result=''
       guessesArr.push(userGuess)
     } else if (guessleft === 1) {
+      lossesScore++
+      message = `You Loss! The letter was ${compChoice}!!!`
+      result="loss"
       guessleft += 9
       guessesArr = []
       compChoice = letterChoices[Math.floor(Math.random() * 26)]
-      lossesScore++
     }
   }
   // Create a piece of html to display the game's results
@@ -42,7 +52,7 @@ document.onkeyup = function (event) {
 <h3>Losses : ${lossesScore}</h3>
 <h3>Guesses Left : ${guessleft}</h3>
 <h3>Your Guesses so far : ${guessesArr}</h3>
-<h3> Computer Choice: ${compChoice}</h3>
+<h2 class=${result} >${message}</h2>
 `
   // Puts the html into the game div
   document.querySelector(".game").innerHTML = html
